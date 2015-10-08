@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>サンプル</title>
+    <link rel="stylesheet"
+      href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
+    <style>
+      body .ui-header .ui-table{
+        margin-left: 1em; margin-right: 1em;
+      }
+    </style>
+    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+    <script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript" src="sheet.js"></script>
+    <script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
+  </head>
+  <body>
+    <div data-role="page" data-theme="c">
+      <div data-role="header">
+        <a href="#" data-icon="back" data-rel="back">戻る</a>
+        <h1>サンプルページ</h1>
+      </div><!-- /header -->
+      <div data-role="content">
+        <p>コンテンツ1行目</p>
+        <p>コンテンツ2行目</p>
+        <p>コンテンツ3行目</p>
+        <ul data-role="listview" id="list">
+        </ul>
+      </div><!-- /content -->
+      <!-- <div data-role="listview">
+        <li><a href="#">aaa</a</li>
+        <li><a href="#">bbb</a></li>
+        <li><a href="#">ccc</a></li>
+        <li>drille down
+          <ul>
+            <li>zzz</li>
+            <li>yyy</li>
+          </ul>
+        </li>
+      </div> -->
+      <a href="foo" data-role="button">ボタンA</a>
+      <a href="foo" data-role="button" data-inline="true">ボタンB</a>
+      <div data-role="controlgroup" data-type="horizontal">
+        <a href="frwd" data-role="button" data-icon="arror-r">次へ</a>
+        <a href="back" data-role="button" data-icon="arror-l">前へ</a>
+        <a href="stop" data-role="button" data-icon="delete">停止</a>
+      </div>
+      <div data-role="fieldcontain">
+        <fieldset data-role="controlgroup" data-type="horizontal">
+          <legend>ペット</legend>
+          <input type="radio" name="c0" id="c1" value="c1" checked="checked" >
+          <label for="c1">ねこ</label>
+          <input type="radio" name="c0" id="c2" value="c2">
+          <label for="c2">いぬ</label>
+          <input type="radio" name="c0" id="c3" value="c3">
+          <label for="c3">うさぎ</label>
+        </fieldset>
+      </div>
+      <div data-role="footer" data-position="fixed">
+        <div data-role="navbar">
+          <ul>
+            <li><a href="/" data-icon="home" class="ui-btn-active">トップ</a></li>
+            <li><a href="/search/" data-icon="search">検索</a></li>
+            <li><a href="/about/" data-icon="info">情報</a></li>
+            <li><a href="/setup/" data-icon="gear">設定</a></li>
+          </ul>
+        </div>
+      </div><!-- /footer -->
+    </div><!-- /page -->
+    <script type="text/javascript">
+      google.load('visualization', '1', {'packages':['table']});
+      $(document).bind('pageinit', function () {
+        var url = "https://docs.google.com/spreadsheets/d/1b7xybLh2QONG5db8ipPoxetNKWJdQeJKteMAInYJ7Vk/edit?usp=sharing"
+        $('div').live('pageshow', function () {
+          getSheet(url, function (json) {
+            var str="";
+            $.each(json, function () {
+              str += '<li><h2>'+this["name"]+'</h2></li>';
+              this["company"]+'('+this["year"]+')'+'</p></li>';
+            });
+            $('#list').append(str);
+            $('#list').listview('refresh');
+          });
+        });
+      })
+    </script>
+  </body>
+</html>
